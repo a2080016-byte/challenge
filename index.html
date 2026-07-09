@@ -23,7 +23,7 @@
       <div class="hero__track" aria-hidden="true"></div>
       <div class="hero__inner">
         <p class="hero__dates" id="hero-dates"></p>
-        <h1 class="hero__brand">Челендж</h1>
+        <h1 class="hero__brand"><span>Челендж</span></h1>
         <p class="hero__tagline">
           Спорт каждый день. Без сигарет. Минус&nbsp;15%.
         </p>
@@ -32,6 +32,36 @@
     </header>
 
     <main>
+      <section class="section section--standings" aria-labelledby="standings-title">
+        <div class="wrap">
+          <h2 id="standings-title" class="section__title">Турнирная таблица</h2>
+          <p class="section__lead">
+            Места по прогрессу к −15%. Учитываются вес, спорт и дни без курения.
+          </p>
+          <div class="standings-scroll">
+            <table class="standings" id="standings">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Участник</th>
+                  <th scope="col">Старт</th>
+                  <th scope="col">Сейчас</th>
+                  <th scope="col">Цель</th>
+                  <th scope="col">−кг</th>
+                  <th scope="col">К цели</th>
+                  <th scope="col">Спорт</th>
+                  <th scope="col">Без курения</th>
+                  <th scope="col">Серия спорт</th>
+                  <th scope="col">Серия без</th>
+                  <th scope="col">Очки</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       <section class="section section--goals" aria-labelledby="goals-title">
         <div class="wrap">
           <h2 id="goals-title" class="section__title">Правила</h2>

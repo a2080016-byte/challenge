@@ -113,6 +113,82 @@
     return count;
   }
 
+  function countCheckIns(personId, field) {
+    const start = parseDate(base.startDate);
+    const end = parseDate(base.endDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const last = today < end ? today : end;
+    if (last < start) return 0;
+    let count = 0;
+    const cursor = new Date(start);
+    while (cursor <= last) {
+      const c = getCheckIn(personId, toISO(cursor));
+      if (c[field]) count += 1;
+      cursor.setDate(cursor.getDate() + 1);
+    }
+    return count;
+  }
+
+  function totalScore(p) {
+    const pct = weightProgress(p);
+    const sportDays = countCheckIns(p.id, "sport");
+    const noSmokeDays = countCheckIns(p.id, "noSmoke");
+    const sportStreak = streak(p.id, "sport");
+    const smokeStreak = streak(p.id, "noSmoke");
+    // Вес важнее, привычки и серии дают бонус
+    return Math.round(pct * 10 + sportDays * 3 + noSmokeDays * 3 + sportStreak + smokeStreak);
+  }
+
+  function standingsRows() {
+    return base.participants
+      .map((p) => ({
+        p,
+        target: getTarget(p),
+        current: getWeight(p),
+        lost: lostKg(p),
+        pct: weightProgress(p),
+        sportDays: countCheckIns(p.id, "sport"),
+        noSmokeDays: countCheckIns(p.id, "noSmoke"),
+        sportStreak: streak(p.id, "sport"),
+        smokeStreak: streak(p.id, "noSmoke"),
+        score: totalScore(p),
+      }))
+      .sort((a, b) => b.score - a.score || b.pct - a.pct || a.current - b.current);
+  }
+
+  function renderStandings() {
+    const tbody = document.querySelector("#standings tbody");
+    if (!tbody) return;
+    const rows = standingsRows();
+    tbody.innerHTML = rows
+      .map((row, i) => {
+        const place = i + 1;
+        const lostLabel = row.lost > 0 ? `−${row.lost}` : String(row.lost);
+        return `
+        <tr class="${place === 1 ? "is-leader" : ""}" style="--person-color:${row.p.color}">
+          <td><span class="standings__rank standings__rank--${place}">${place}</span></td>
+          <td>
+            <span class="standings__name">
+              <span class="standings__dot" aria-hidden="true"></span>
+              ${row.p.name}
+            </span>
+          </td>
+          <td>${row.p.startWeight}</td>
+          <td>${row.current}</td>
+          <td>${row.target}</td>
+          <td>${lostLabel}</td>
+          <td class="standings__pct">${row.pct}%</td>
+          <td>${row.sportDays}</td>
+          <td>${row.noSmokeDays}</td>
+          <td>${row.sportStreak}</td>
+          <td>${row.smokeStreak}</td>
+          <td class="standings__score">${row.score}</td>
+        </tr>`;
+      })
+      .join("");
+  }
+
   function renderCountdown() {
     const el = document.getElementById("countdown");
     const dates = document.getElementById("hero-dates");
@@ -258,6 +334,7 @@
       card.querySelectorAll("input[type=checkbox]").forEach((input) => {
         input.addEventListener("change", () => {
           setCheckIn(id, today, input.dataset.field, input.checked);
+          renderStandings();
           renderTeam();
           renderCalendar();
         });
@@ -392,6 +469,7 @@
 
   function renderAll() {
     renderCountdown();
+    renderStandings();
     renderGoals();
     renderTeam();
     renderToday();
