@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Челендж Инны, Виталия и Александра: спорт каждый день, отказ от курения, минус 15% веса."
+    />
+    <title>Челендж — спорт, без курения, −15%</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="noise" aria-hidden="true"></div>
+
+    <header class="hero">
+      <div class="hero__track" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="hero__dates" id="hero-dates"></p>
+        <h1 class="hero__brand">Челендж</h1>
+        <p class="hero__tagline">
+          Спорт каждый день. Без сигарет. Минус&nbsp;15%.
+        </p>
+        <div class="hero__cta" id="countdown"></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section section--goals" aria-labelledby="goals-title">
+        <div class="wrap">
+          <h2 id="goals-title" class="section__title">Правила</h2>
+          <p class="section__lead">Три условия. Один срок. Три участника.</p>
+          <ul class="goals" id="goals-list"></ul>
+        </div>
+      </section>
+
+      <section class="section section--team" aria-labelledby="team-title">
+        <div class="wrap">
+          <h2 id="team-title" class="section__title">Участники</h2>
+          <p class="section__lead">
+            Цель по весу — −15% от старта. Прогресс общий для всех.
+          </p>
+          <div class="team" id="team"></div>
+        </div>
+      </section>
+
+      <section class="section section--today" aria-labelledby="today-title">
+        <div class="wrap">
+          <h2 id="today-title" class="section__title">Сегодня</h2>
+          <p class="section__lead">
+            Отметьте спорт и день без курения. Вес можно обновить ниже.
+          </p>
+          <p class="today-date" id="today-date"></p>
+          <div class="today-grid" id="today-grid"></div>
+        </div>
+      </section>
+
+      <section class="section section--calendar" aria-labelledby="cal-title">
+        <div class="wrap">
+          <h2 id="cal-title" class="section__title">Календарь</h2>
+          <p class="section__lead">
+            Зелёный — спорт и без курения. Жёлтый — частично. Серый — нет
+            отметок.
+          </p>
+          <div class="cal-tabs" id="cal-tabs" role="tablist"></div>
+          <div class="calendar" id="calendar"></div>
+        </div>
+      </section>
+
+      <section class="section section--sync" aria-labelledby="sync-title">
+        <div class="wrap wrap--narrow">
+          <h2 id="sync-title" class="section__title">Чтобы все видели</h2>
+          <p class="section__lead">
+            Сайт на GitHub Pages читает данные из
+            <code>js/data.js</code>. После отметок нажмите «Скопировать
+            данные», вставьте в файл и сделайте push — прогресс станет общим.
+          </p>
+          <div class="sync-actions">
+            <button type="button" class="btn btn--primary" id="btn-copy">
+              Скопировать данные
+            </button>
+            <button type="button" class="btn btn--ghost" id="btn-reset">
+              Сбросить локальные правки
+            </button>
+          </div>
+          <p class="sync-status" id="sync-status" hidden></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="wrap">
+        <p>Челендж · 10.07.2026 — 01.10.2026 · Инна · Виталий · Александр</p>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
