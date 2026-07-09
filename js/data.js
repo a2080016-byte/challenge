@@ -14,7 +14,7 @@ window.CHALLENGE = {
       id: "inna",
       name: "Инна",
       startWeight: 66.6,
-      currentWeight: 66.6,
+      currentWeight: 66.4,
       color: "#ff3d6e",
     },
     {
