@@ -158,35 +158,76 @@
   }
 
   function renderStandings() {
-    const tbody = document.querySelector("#standings tbody");
-    if (!tbody) return;
     const rows = standingsRows();
-    tbody.innerHTML = rows
-      .map((row, i) => {
-        const place = i + 1;
-        const lostLabel = row.lost > 0 ? `−${row.lost}` : String(row.lost);
-        return `
-        <tr class="${place === 1 ? "is-leader" : ""}" style="--person-color:${row.p.color}">
-          <td><span class="standings__rank standings__rank--${place}">${place}</span></td>
-          <td>
-            <span class="standings__name">
-              <span class="standings__dot" aria-hidden="true"></span>
-              ${row.p.name}
-            </span>
-          </td>
-          <td>${row.p.startWeight}</td>
-          <td>${row.current}</td>
-          <td>${row.target}</td>
-          <td>${lostLabel}</td>
-          <td class="standings__pct">${row.pct}%</td>
-          <td>${row.sportDays}</td>
-          <td>${row.noSmokeDays}</td>
-          <td>${row.sportStreak}</td>
-          <td>${row.smokeStreak}</td>
-          <td class="standings__score">${row.score}</td>
-        </tr>`;
-      })
-      .join("");
+    const tbody = document.querySelector("#standings tbody");
+    const cards = document.getElementById("standings-cards");
+
+    if (tbody) {
+      tbody.innerHTML = rows
+        .map((row, i) => {
+          const place = i + 1;
+          const lostLabel = row.lost > 0 ? `−${row.lost}` : String(row.lost);
+          return `
+          <tr class="${place === 1 ? "is-leader" : ""}" style="--person-color:${row.p.color}">
+            <td><span class="standings__rank standings__rank--${place}">${place}</span></td>
+            <td>
+              <span class="standings__name">
+                <span class="standings__dot" aria-hidden="true"></span>
+                ${row.p.name}
+              </span>
+            </td>
+            <td>${row.p.startWeight}</td>
+            <td>${row.current}</td>
+            <td>${row.target}</td>
+            <td>${lostLabel}</td>
+            <td class="standings__pct">${row.pct}%</td>
+            <td>${row.sportDays}</td>
+            <td>${row.noSmokeDays}</td>
+            <td>${row.sportStreak}</td>
+            <td>${row.smokeStreak}</td>
+            <td class="standings__score">${row.score}</td>
+          </tr>`;
+        })
+        .join("");
+    }
+
+    if (cards) {
+      cards.innerHTML = rows
+        .map((row, i) => {
+          const place = i + 1;
+          const lostLabel = row.lost > 0 ? `−${row.lost}` : String(row.lost);
+          return `
+          <article class="rank-card ${place === 1 ? "is-leader" : ""}" style="--person-color:${row.p.color}">
+            <div class="rank-card__top">
+              <span class="standings__rank standings__rank--${place}">${place}</span>
+              <div class="rank-card__who">
+                <span class="standings__name">
+                  <span class="standings__dot" aria-hidden="true"></span>
+                  ${row.p.name}
+                </span>
+                <span class="rank-card__score">${row.score} очков</span>
+              </div>
+              <span class="standings__pct rank-card__pct">${row.pct}%</span>
+            </div>
+            <div class="rank-card__bar">
+              <div class="progress__bar">
+                <div class="progress__fill" style="width:${row.pct}%"></div>
+              </div>
+            </div>
+            <dl class="rank-card__grid">
+              <div><dt>Старт</dt><dd>${row.p.startWeight}</dd></div>
+              <div><dt>Сейчас</dt><dd>${row.current}</dd></div>
+              <div><dt>Цель</dt><dd>${row.target}</dd></div>
+              <div><dt>−кг</dt><dd>${lostLabel}</dd></div>
+              <div><dt>Спорт</dt><dd>${row.sportDays}</dd></div>
+              <div><dt>Без кур.</dt><dd>${row.noSmokeDays}</dd></div>
+              <div><dt>Серия спорт</dt><dd>${row.sportStreak}</dd></div>
+              <div><dt>Серия без</dt><dd>${row.smokeStreak}</dd></div>
+            </dl>
+          </article>`;
+        })
+        .join("");
+    }
   }
 
   function renderCountdown() {
